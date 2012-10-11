@@ -1,0 +1,32 @@
+{
+    "name": "phly/phly-paste",
+    "description": "ZF2 Module implementing a pastebin",
+    "type": "library",
+    "keywords": [
+        "zf2",
+        "zend",
+        "module",
+        "pastebin"
+    ],
+    "homepage": "https://github.com/weierophinney/PhlyPaste",
+    "authors": [
+        {
+            "name": "Matthew Weier O'Phinney",
+            "email": "matthew@weierophinney.net",
+            "homepage": "http://mwop.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "doctrine/common": ">=2.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhlyPaste": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}

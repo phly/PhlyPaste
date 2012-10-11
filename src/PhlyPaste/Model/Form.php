@@ -24,6 +24,8 @@ abstract class Form
             ),
         ));
 
+        $form->bind($paste);
+
         return $form;
     }
 }

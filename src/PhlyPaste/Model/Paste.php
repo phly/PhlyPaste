@@ -32,6 +32,7 @@ class Paste
      * @Annotation\Required(true)
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Filter({"name":"StringTrim"})
+     * @Annotation\Validator({"name":"StringLength","options":{"max":32000}})
      */
     public $content = '';
 }
