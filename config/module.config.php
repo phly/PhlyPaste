@@ -1,5 +1,19 @@
 <?php
 return array(
+    'phly-paste' => array(
+        'service_alias'          => 'PhlyPaste/MongoService',
+        'mongo_collection_alias' => 'PhlyPaste/MongoCollection',
+        'mongo_collection_name'  => 'pastes',
+        'mongo_db_alias'         => 'PhlyPaste/MongoDB',
+        'mongo_db_name'          => 'site',
+        'mongo_alias'            => 'PhlyPaste/Mongo',
+        'mongo_options'          => array(
+            'server'  => 'mongodb://localhost:27017',
+            'options' => array(
+                'connect' => true,
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'PhlyPaste\Controller\Paste' => 'PhlyPaste\Controller\PasteController',
@@ -28,7 +42,7 @@ return array(
                             ),
                         ),
                     ),
-                    'show' => array(
+                    'view' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => ':paste',
@@ -36,7 +50,7 @@ return array(
                                 'paste' => '[a-f0-9]{8}',
                             ),
                             'defaults' => array(
-                                'action' => 'show',
+                                'action' => 'view',
                             ),
                         ),
                     ),
