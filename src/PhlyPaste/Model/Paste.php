@@ -35,4 +35,15 @@ class Paste
      * @Annotation\Validator({"name":"StringLength","options":{"max":32000}})
      */
     public $content = '';
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Hidden")
+     * @Annotation\Validator({"name":"Int"})
+     */
+    public $timestamp;
+
+    /**
+     * @Annotation\Exclude
+     */
+    public $timezone = 'UTC';
 }

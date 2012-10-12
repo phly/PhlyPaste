@@ -12,6 +12,10 @@ abstract class Form
             $paste = new Paste();
         }
 
+        if (null === $paste->timestamp) {
+            $paste->timestamp = $_SERVER['REQUEST_TIME'];
+        }
+
         $builder = new AnnotationBuilder();
         $form    = $builder->createForm($paste);
 
@@ -21,6 +25,9 @@ abstract class Form
             'name' => 'paste',
             'options' => array(
                 'value' => 'Paste',
+            ),
+            'attributes' => array(
+                'class' => 'btn btn-primary',
             ),
         ));
 

@@ -49,6 +49,7 @@ class MongoPasteService implements PasteServiceInterface
     public function fetchAll()
     {
         $cursor           = $this->collection->find(array('private' => 'false'));
+        $cursor->sort(array('timestamp' => -1));
         $hydratingCursor  = new Mongo\HydratingMongoCursor($cursor, $this->hydrator, new Paste);
         $paginatorAdapter = new Mongo\HydratingPaginatorAdapter($hydratingCursor);
         return new Paginator($paginatorAdapter);

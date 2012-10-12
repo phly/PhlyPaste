@@ -19,12 +19,18 @@ return array(
             'PhlyPaste\Controller\Paste' => 'PhlyPaste\Controller\PasteController',
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'numberoflines' => 'PhlyPaste\View\NumberOfLines',
+            'timeago'       => 'PhlyPaste\View\TimeAgo',
+        ),
+    ),
     'router' => array(
         'routes' => array(
             'phly-paste' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/pastes[/]',
+                    'route'    => '/paste[/]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'PhlyPaste\Controller',
                         'controller'    => 'Paste',
@@ -33,15 +39,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'process' => array(
-                        'type'    => 'Literal',
-                        'options' => array(
-                            'route'    => 'process',
-                            'defaults' => array(
-                                'action' => 'process',
-                            ),
-                        ),
-                    ),
                     'view' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -51,6 +48,34 @@ return array(
                             ),
                             'defaults' => array(
                                 'action' => 'view',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'type' => 'Literal',
+                            'options' => array(
+                                'route' => '.js',
+                                'defaults' => array(
+                                    'action' => 'embed',
+                                ),
+                            ),
+                        ),
+                    ),
+                    'list' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'list',
+                            'defaults' => array(
+                                'action' => 'list',
+                            ),
+                        ),
+                    ),
+                    'process' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'process',
+                            'defaults' => array(
+                                'action' => 'process',
                             ),
                         ),
                     ),

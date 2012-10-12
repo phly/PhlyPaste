@@ -1,0 +1,18 @@
+<article>
+    <?php /** @todo helper for marking up pastes */ ?>
+    <div class="example"><pre><code><?php echo $this->escapeHtml($this->paste) ?></code></pre></div>
+    
+    <dl>
+        <dt>Pasted</dt>
+        <dd><?php echo $this->timeAgo($paste->timestamp) ?> ago</dd>
+
+        <dt>Embed</dt>
+        <dd><input type="text" value="&lt;script src='http://<?php echo $_SERVER['SERVER_NAME'] . $this->url('phly-paste/view/embed') ?>'&gt;&lt;/script&gt;"/></dd>
+
+        <?php /** @todo links for raw and repaste */ ?>
+        <dt>Act</dt>
+        <dd>Raw</dd>
+        <dd>Repaste</dd>
+    </dl>
+</article>
+

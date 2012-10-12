@@ -1,0 +1,18 @@
+<figure>
+    <figcaption>
+        <span class="left span3">
+            <a href="<?php echo $this->url('phly-paste/view', array('id' => $paste->id)) ?>">View</a>
+            <?php
+                $lines = $this->numberOfLines($paste->content);
+                if (!empty($lines)) {
+                    echo '&nbsp;&nbsp;' . $lines;
+                }
+            ?>
+        </span>
+        <span class="right span3">
+            <?php echo $this->timeAgo($paste->timestamp) ?> ago
+        </span>
+    </figcaption>
+
+    <pre><code><?php echo $this->escapeHtml(substr($this->paste->content, 0, 100)) ?></code></pre>
+</figure>

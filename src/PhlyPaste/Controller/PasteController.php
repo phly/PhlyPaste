@@ -7,6 +7,7 @@ use PhlyPaste\Model\Paste;
 use PhlyPaste\Model\PasteServiceInterface;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class PasteController extends AbstractActionController
@@ -20,6 +21,13 @@ class PasteController extends AbstractActionController
 
     public function indexAction()
     {
+        return new ViewModel(array(
+            'form' => Form::factory(),
+        ));
+    }
+
+    public function listAction()
+    {
         $page = $this->params()->fromQuery('page', 1);
         return new ViewModel(array(
             'page'   => $this->params()->fromQuery('page', 1),
@@ -30,19 +38,26 @@ class PasteController extends AbstractActionController
 
     public function viewAction()
     {
-        $id = $this->params()->fromRoute('id', false);
-        if (!$id) {
-            return $this->redirect()->toRoute('phly-paste');
-        }
-        $paste = $this->pastes->fetch($id);
-        if (!$paste instanceof Paste) {
-            $this->getResponse()->setStatusCode(404);
-            return;
+        $paste = $this->getPaste();
+        if ($paste instanceof Response) {
+            return $paste;
         }
 
         return new ViewModel(array(
             'paste' => $paste,
             'form'  => Form::factory($paste),
+        ));
+    }
+
+    public function embedAction()
+    {
+        $paste = $this->getPaste();
+        if ($paste instanceof Response) {
+            return $paste;
+        }
+
+        return new JsonModel(array(
+            'paste' => $paste,
         ));
     }
 
@@ -59,9 +74,7 @@ class PasteController extends AbstractActionController
         if ($prg === false) {
             // this wasn't a POST request, but there were no params in the flash messenger
             // probably this is the first time the form was loaded
-            $viewModel = new ViewModel(array('form' => $form));
-            $viewModel->setTemplate('phly-paste/paste/form');
-            return $viewModel;
+            return $this->redirect()->toRoute('phly-paste');
         }
 
         // $prg is an array containing the POST params from the previous request
@@ -73,7 +86,7 @@ class PasteController extends AbstractActionController
                 'form'  => $form,
                 'error' => true,
             ));
-            $viewModel->setTemplate('phly-paste/paste/form');
+            $viewModel->setTemplate('phly-paste/paste/index');
             return $viewModel;
         }
 
@@ -82,5 +95,19 @@ class PasteController extends AbstractActionController
         return $this->redirect()->toRoute('phly-paste/view', array(
             'id' => $paste->id,
         ));
+    }
+
+    protected function getPaste()
+    {
+        $id = $this->params()->fromRoute('id', false);
+        if (!$id) {
+            return $this->redirect()->toRoute('phly-paste');
+        }
+        $paste = $this->pastes->fetch($id);
+        if (!$paste instanceof Paste) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        return $paste;
     }
 }
