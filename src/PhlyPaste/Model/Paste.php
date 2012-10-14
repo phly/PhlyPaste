@@ -11,7 +11,7 @@ class Paste
     /**
      * @Annotation\Exclude()
      */
-    public $id;
+    public $hash;
 
     /**
      * @Annotation\Required(true)

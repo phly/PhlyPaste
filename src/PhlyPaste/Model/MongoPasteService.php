@@ -23,19 +23,28 @@ class MongoPasteService implements PasteServiceInterface
      */
     public function create(Paste $paste)
     {
+        $paste->hash = CreateHash::generateHash($paste, $this);
         $data = $this->hydrator->extract($paste);
-        $data['id'] = $this->getUniqId($data);
 
         $result = $this->collection->insert($data);
-        return $this->hydrator->hydrate($data, $paste);
+        return $paste;
+    }
+
+    public function exists($hash)
+    {
+        $result = $this->collection->findOne(array('hash' => $hash));
+        if ($result === null) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * @return Paste
      */
-    public function fetch($identifier)
+    public function fetch($hash)
     {
-        $result = $this->collection->findOne(array('id' => $identifier));
+        $result = $this->collection->findOne(array('hash' => $hash));
         if ($result === null) {
             return null;
         }
@@ -53,28 +62,5 @@ class MongoPasteService implements PasteServiceInterface
         $hydratingCursor  = new Mongo\HydratingMongoCursor($cursor, $this->hydrator, new Paste);
         $paginatorAdapter = new Mongo\HydratingPaginatorAdapter($hydratingCursor);
         return new Paginator($paginatorAdapter);
-    }
-
-    /**
-     * Calculate a unique identifier for the paste
-     *
-     * Uses the microtime and language to seed the identifier, and then
-     * appends a uniqid() value. This is hashed using sha256, and the first
-     * 8 characters are obtained; if a match is found, repeats the process.
-     * 
-     * @param  array $data 
-     * @return string
-     */
-    protected function getUniqId(array $data)
-    {
-        $identifier = sprintf('%d:%s', microtime(true), $data['language']);
-        do {
-            $identifier .= uniqid();
-            $hash = hash('sha256', $identifier);
-            $id = substr($hash, 0, 8);
-            $result = $this->collection->findOne(array('id' => $id));
-        } while ($result !== null);
-
-        return $id;
     }
 }

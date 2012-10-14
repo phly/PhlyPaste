@@ -10,9 +10,14 @@ interface PasteServiceInterface
     public function create(Paste $paste);
 
     /**
+     * @return bool
+     */
+    public function exists($hash);
+
+    /**
      * @return Paste
      */
-    public function fetch($identifier);
+    public function fetch($hash);
 
     /**
      * @return Paginator
