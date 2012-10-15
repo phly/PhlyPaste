@@ -37,6 +37,7 @@ class Paste
     public $content = '';
 
     /**
+     * @Annotation\Exclude()
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\Validator({"name":"Int"})
      */

@@ -58,6 +58,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'repaste' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/repaste',
+                                    'defaults' => array(
+                                        'action' => 'repaste',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                     'list' => array(

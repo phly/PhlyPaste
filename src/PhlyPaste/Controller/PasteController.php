@@ -45,7 +45,6 @@ class PasteController extends AbstractActionController
 
         return new ViewModel(array(
             'paste' => $paste,
-            'form'  => Form::factory($paste),
         ));
     }
 
@@ -59,6 +58,20 @@ class PasteController extends AbstractActionController
         return new JsonModel(array(
             'paste' => $paste,
         ));
+    }
+
+    public function repasteAction()
+    {
+        $paste = $this->getPaste();
+        if ($paste instanceof Response) {
+            return $paste;
+        }
+
+        $viewModel = new ViewModel(array(
+            'form'  => Form::factory($paste),
+        ));
+        $viewModel->setTemplate('phly-paste/paste/index');
+        return $viewModel;
     }
 
     public function processAction()

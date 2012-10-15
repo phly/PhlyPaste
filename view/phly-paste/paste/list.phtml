@@ -6,6 +6,8 @@
 <?php
     return;
 endif;
+$this->pastes->setCurrentPageNumber($this->page);
+$this->pastes->setItemCountPerPage(3);
 foreach ($this->pastes as $paste):
     echo $this->render('phly-paste/paste/summary', array('paste' => $paste));
 endforeach;

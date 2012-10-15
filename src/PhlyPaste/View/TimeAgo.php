@@ -14,6 +14,10 @@ class TimeAgo extends AbstractHelper
 
         $time = $_SERVER['REQUEST_TIME'] - $timestamp;
 
+        if (floor($time) == 0) {
+            return 'just now';
+        }
+
         $tokens = array (
             31536000 => 'year',
             2592000  => 'month',
@@ -29,7 +33,7 @@ class TimeAgo extends AbstractHelper
                 continue;
             }
             $numberOfUnits = floor($time / $unit);
-            return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '');
+            return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '') . ' ago';
         }
     }
 }
