@@ -11,7 +11,9 @@ X Basic paste functionality:
     X HTML Purifier for markdown
   - Captcha support
   - Split based on "##" sections
-  - Embed paste via JS
   X Move PhlyPaste\Mongo stuff into separate module
 - Third tier functionality:
   - Display themes
+  - API
+  - Embed paste via JS
+  - Dasbit plugin: !paste <id> -> return link and title/first line
