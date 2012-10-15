@@ -1,5 +1,5 @@
 {
-    "hash": "731b18cd9bba36c3fdc8edebfb2ab842",
+    "hash": "85b519b90a774f08dc51d8f1dbed8d2d",
     "packages": [
         {
             "name": "doctrine/common",
@@ -68,6 +68,52 @@
                 "eventmanager",
                 "annotations",
                 "persistence"
+            ]
+        },
+        {
+            "name": "easybook/geshi",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javiereguiluz/geshi",
+                "reference": "6f5f9c621936faf90d92f355967604fe07f7a60f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/javiereguiluz/geshi/zipball/6f5f9c621936faf90d92f355967604fe07f7a60f",
+                "reference": "6f5f9c621936faf90d92f355967604fe07f7a60f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">4.3.0"
+            },
+            "time": "1348828425",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "./"
+                ]
+            },
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Benny Baumann",
+                    "email": "BenBE@geshi.org"
+                },
+                {
+                    "name": "Nigel McNie",
+                    "email": "nigel@geshi.org"
+                }
+            ],
+            "description": "GeSHi - Generic Syntax Highlighter. This is an unmodified port of GeSHi project code found on SourceForge.",
+            "homepage": "http://qbnz.com/highlighter",
+            "keywords": [
+                "syntax",
+                "highlight",
+                "highlighter"
             ]
         },
         {
@@ -176,7 +222,7 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "easybook/geshi": 20
+    }
 }

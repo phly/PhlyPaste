@@ -18,6 +18,7 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
+            'highlight'     => 'PhlyPaste\View\Highlight',
             'numberoflines' => 'PhlyPaste\View\NumberOfLines',
             'timeago'       => 'PhlyPaste\View\TimeAgo',
         ),

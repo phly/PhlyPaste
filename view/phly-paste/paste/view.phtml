@@ -1,9 +1,8 @@
 <article class="row">
 <div class="span8">
-    <?php /** 
-           * @todo helper for marking up pastes 
-           */ ?>
-    <pre><?php echo $this->escapeHtml($this->paste->content) ?></pre>
+    <pre><?php 
+        echo $this->highlight($this->paste->content, $this->paste->language);
+    ?></pre>
     
     <dl>
         <dt>Pasted</dt>
@@ -12,9 +11,6 @@
         <dt>Embed</dt>
         <dd><input type="text" value="&lt;script src='http://<?php echo $_SERVER['SERVER_NAME'] . $this->url('phly-paste/view/embed', array('paste' => $this->paste->hash)) ?>'&gt;&lt;/script&gt;"/></dd>
 
-        <?php /** 
-               * @todo links for raw and repaste 
-               */ ?>
         <dt>Act</dt>
         <dd><a href="<?php echo $this->url('phly-paste/view/raw', array('paste' => $paste->hash)) ?>">Raw</a></dd>
         <dd><a href="<?php echo $this->url('phly-paste/view/repaste', array('paste' => $paste->hash)) ?>">Repaste</a></dd>

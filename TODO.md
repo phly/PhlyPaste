@@ -7,7 +7,7 @@ X Basic paste functionality:
   X Show raw paste
   X Populate form from existing paste
 - Second tier functionality:
-  - Syntax highlighting
+  X Syntax highlighting
   - Split based on "##" sections
   - Embed paste via JS
 - Third tier functionality:
