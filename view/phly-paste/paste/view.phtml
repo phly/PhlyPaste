@@ -1,8 +1,9 @@
-<article>
+<article class="row">
+<div class="span8">
     <?php /** 
            * @todo helper for marking up pastes 
            */ ?>
-    <div class="example"><pre><code><?php echo $this->escapeHtml($this->paste->content) ?></code></pre></div>
+    <pre><?php echo $this->escapeHtml($this->paste->content) ?></pre>
     
     <dl>
         <dt>Pasted</dt>
@@ -15,8 +16,12 @@
                * @todo links for raw and repaste 
                */ ?>
         <dt>Act</dt>
-        <dd>Raw</dd>
+        <dd><a href="<?php echo $this->url('phly-paste/view/raw', array('paste' => $paste->hash)) ?>">Raw</a></dd>
         <dd><a href="<?php echo $this->url('phly-paste/view/repaste', array('paste' => $paste->hash)) ?>">Repaste</a></dd>
     </dl>
+</div>
+
+<?php echo $this->render('phly-paste/paste/sidebar') ?>
+
 </article>
 

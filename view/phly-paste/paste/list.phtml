@@ -1,8 +1,13 @@
-<section class="phly-paste row"><div class="span8">
+<section class="phly-paste row">
+<div class="span8">
 <h1>Pastes</h1>
 <?php if (0 == count($this->pastes)): ?>
 <p>No pastes found!</p>
-</div></section>
+</div>
+
+<?php echo $this->render('phly-paste/paste/sidebar'); ?>
+
+</section>
 <?php
     return;
 endif;
@@ -13,9 +18,8 @@ foreach ($this->pastes as $paste):
 endforeach;
 ?>
 
-</div></section>
+<div class="clearfix"></div>
 
-<section class="phly-paste row"><div class="span8">
 <?php
 $paginationInfo = $this->placeholder('phly-paste-pagination');
 if (!isset($paginationInfo->route)) {
@@ -25,4 +29,8 @@ if (!isset($paginationInfo->route)) {
 echo $this->paginationControl($this->pastes, 'Sliding', 'phly-paste/paste/pagination-control');
 ?>
 
-</div></section>
+</div>
+
+<?php echo $this->render('phly-paste/paste/sidebar'); ?>
+
+</section>

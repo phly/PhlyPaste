@@ -74,6 +74,20 @@ class PasteController extends AbstractActionController
         return $viewModel;
     }
 
+
+    public function rawAction()
+    {
+        $paste = $this->getPaste();
+        if ($paste instanceof Response) {
+            return $paste;
+        }
+
+        $response = $this->getResponse();
+        $response->setContent($paste->content);
+        $response->getHeaders()->addHeaderLine('Content-Type', 'text/plain');
+        return $response;
+    }
+
     public function processAction()
     {
         $prg = $this->prg('phly-paste/process');
