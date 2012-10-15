@@ -40,9 +40,9 @@ class Highlight extends AbstractHelper
             $lang    = $language;
             $title   = trim($segments[$i]);
             $matches = array();
-            if (preg_match('/\[\s*(?P<lang>[a-zA-Z0-9_])\s*\]/', $title, $matches)) {
+            if (preg_match('/\[\s*(?P<lang>[a-zA-Z0-9_]+)\s*\]/', $title, $matches)) {
                 $lang  = $matches['lang'];
-                $title = preg_replace('/\[[\]]+\]/', '', $title);
+                $title = preg_replace('/\[[^\]]+\]/', '', $title);
             }
 
             $segment = trim($segments[$i + 1]);
