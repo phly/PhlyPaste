@@ -6,11 +6,11 @@ X Basic paste functionality:
   X View paginated list of pastes
   X Show raw paste
   X Populate form from existing paste
-- Second tier functionality:
+X Second tier functionality:
   X Syntax highlighting
     X HTML Purifier for markdown
-  - Captcha support
-  - Split based on "##" sections
+  X Captcha support
+  X Split based on "##" sections
   X Move PhlyPaste\Mongo stuff into separate module
 - Third tier functionality:
   - Display themes
