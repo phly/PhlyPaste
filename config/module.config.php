@@ -1,18 +1,10 @@
 <?php
 return array(
-    'phly-paste' => array(
-        'mongo_collection_alias' => 'PhlyPaste/MongoCollection',
-        'mongo_collection_name'  => 'pastes',
-        'mongo_db_name'          => 'site',
-        'mongo_options'          => array(
-            'server'  => 'mongodb://localhost:27017',
-            'options' => array(
-                'connect' => true,
-            ),
-        ),
-    ),
     'service_manager' => array(
         'aliases' => array(
+            // You'll want to override this in your global or local configuration, and
+            // indicate which service implementation you wish to use. In doing so, the
+            // object returned should implement PhlyPaste\Model\PasteServiceInterface.
             'PhlyPaste\PasteService' => 'PhlyPaste\MongoService',
         ),
     ),

@@ -12,6 +12,6 @@ X Basic paste functionality:
   - Captcha support
   - Split based on "##" sections
   - Embed paste via JS
-  - Move PhlyPaste\Mongo stuff into separate module
+  X Move PhlyPaste\Mongo stuff into separate module
 - Third tier functionality:
   - Display themes

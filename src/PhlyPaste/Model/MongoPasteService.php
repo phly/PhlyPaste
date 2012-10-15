@@ -2,7 +2,7 @@
 namespace PhlyPaste\Model;
 
 use MongoCollection;
-use PhlyPaste\Mongo;
+use PhlyMongo as Mongo;
 use Zend\Paginator\Paginator;
 use Zend\Stdlib\Hydrator\ObjectProperty as ObjectPropertyHydrator;
 

@@ -24,7 +24,8 @@
         "nick4fake/htmlpurifier": "dev-master"
     },
     "suggest": {
-        "EdpMarkdown": "Install Markdown to allow markdown pastes: git clone --recursive git://github.com/EvanDotPro/EdpMarkdown.git vendor/EdpMarkdown"
+        "EdpMarkdown": "Install Markdown to allow markdown pastes: git clone --recursive git://github.com/EvanDotPro/EdpMarkdown.git vendor/EdpMarkdown",
+        "phly/phly-mongo": "Install phly/phly-mongo if you wish to use the Mongo adapters"
     },
     "autoload": {
         "psr-0": {
