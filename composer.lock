@@ -1,5 +1,5 @@
 {
-    "hash": "85b519b90a774f08dc51d8f1dbed8d2d",
+    "hash": "55c54094eec9e386385948b603bffc4e",
     "packages": [
         {
             "name": "doctrine/common",
@@ -117,6 +117,38 @@
             ]
         },
         {
+            "name": "nick4fake/htmlpurifier",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nick4fake/htmlpurifier.git",
+                "reference": "a33ac67e68c7aa241a3d2aa27174ba88df48b1e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/nick4fake/htmlpurifier/zipball/a33ac67e68c7aa241a3d2aa27174ba88df48b1e8",
+                "reference": "a33ac67e68c7aa241a3d2aa27174ba88df48b1e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "1348047456",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "",
+                    "HTMLPurifier_": "HTMLPurifier/"
+                }
+            },
+            "license": [
+                "LGPL-2.0"
+            ],
+            "description": "HTML Purifier is a standards-compliant HTML filter library written in PHP.",
+            "homepage": "http://htmlpurifier.org/"
+        },
+        {
             "name": "zendframework/zendframework",
             "version": "2.0.2",
             "source": {
@@ -223,6 +255,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "easybook/geshi": 20
+        "easybook/geshi": 20,
+        "nick4fake/htmlpurifier": 20
     }
 }

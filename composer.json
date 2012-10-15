@@ -20,11 +20,12 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
         "doctrine/common": ">=2.1",
-        "easybook/geshi": "dev-master"
+        "easybook/geshi": "dev-master",
+        "nick4fake/htmlpurifier": "dev-master"
     },
     "suggest": {
         "EdpMarkdown": "Install Markdown to allow markdown pastes: git clone --recursive git://github.com/EvanDotPro/EdpMarkdown.git vendor/EdpMarkdown"
-    }
+    },
     "autoload": {
         "psr-0": {
             "PhlyPaste": "src/"
