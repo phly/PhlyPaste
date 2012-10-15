@@ -1,11 +1,22 @@
 <?php
 return array(
+    'phly_paste' => array(
+        // Override this in your local configuration. The array can contain two 
+        // keys, "class" and "options"; the array is passed to 
+        // Zend\Captcha\Factory::factory()
+        'captcha' => array(
+            'class' => 'Dumb',
+        ),
+    ),
     'service_manager' => array(
         'aliases' => array(
             // You'll want to override this in your global or local configuration, and
             // indicate which service implementation you wish to use. In doing so, the
             // object returned should implement PhlyPaste\Model\PasteServiceInterface.
             'PhlyPaste\PasteService' => 'PhlyPaste\MongoService',
+            // PhlyPaste\CaptchaService is defined in PhlyPaste\Module::getServiceConfig()
+            // and uses the captcha configuration from this file.
+            'PhlyPaste\Captcha'      => 'PhlyPaste\CaptchaService',
         ),
     ),
     'view_helpers' => array(

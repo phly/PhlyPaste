@@ -2,7 +2,7 @@
 
 namespace PhlyPaste\Controller;
 
-use PhlyPaste\Model\Form;
+use PhlyPaste\Model\Form as FormFactory;
 use PhlyPaste\Model\Paste;
 use PhlyPaste\Model\PasteServiceInterface;
 use Zend\Http\PhpEnvironment\Response;
@@ -12,7 +12,13 @@ use Zend\View\Model\ViewModel;
 
 class PasteController extends AbstractActionController
 {
+    protected $formFactory;
     protected $pastes;
+
+    public function setFormFactory(FormFactory $factory)
+    {
+        $this->formFactory = $factory;
+    }
 
     public function setPasteService(PasteServiceInterface $pastes)
     {
@@ -22,7 +28,7 @@ class PasteController extends AbstractActionController
     public function indexAction()
     {
         return new ViewModel(array(
-            'form' => Form::factory(),
+            'form' => $this->formFactory->factory(),
         ));
     }
 
@@ -32,7 +38,7 @@ class PasteController extends AbstractActionController
         return new ViewModel(array(
             'page'   => $this->params()->fromQuery('page', 1),
             'pastes' => $this->pastes->fetchAll(),
-            'form'   => Form::factory(),
+            'form'   => $this->formFactory->factory(),
         ));
     }
 
@@ -68,7 +74,7 @@ class PasteController extends AbstractActionController
         }
 
         $viewModel = new ViewModel(array(
-            'form'  => Form::factory($paste),
+            'form'  => $this->formFactory->factory($paste),
         ));
         $viewModel->setTemplate('phly-paste/paste/index');
         return $viewModel;
@@ -93,18 +99,12 @@ class PasteController extends AbstractActionController
         $prg = $this->prg('phly-paste/process');
 
         if ($prg instanceof Response) {
-$this->getEventManager()->trigger('log', $this, array(
-    'message' => 'PRG redirect on POST',
-));
             // returned a response to redirect us
             return $prg;
         } 
 
-        $form = Form::factory();
+        $form = $this->formFactory->factory();
         if ($prg === false) {
-$this->getEventManager()->trigger('log', $this, array(
-    'message' => 'PRG redirect on INVALID',
-));
             // this wasn't a POST request, but there were no params in the flash messenger
             // probably this is the first time the form was loaded
             return $this->redirect()->toRoute('phly-paste');
@@ -120,17 +120,11 @@ $this->getEventManager()->trigger('log', $this, array(
                 'error' => true,
             ));
             $viewModel->setTemplate('phly-paste/paste/index');
-$this->getEventManager()->trigger('log', $this, array(
-    'message' => 'Form invalid: ' . var_export($form->getMessages(), 1),
-));
             return $viewModel;
         }
 
         $paste = $form->getData();
         $paste = $this->pastes->create($paste);
-$this->getEventManager()->trigger('log', $this, array(
-    'message' => 'Form success; paste is ' . $paste->hash,
-));
         return $this->redirect()->toRoute('phly-paste/view', array(
             'paste' => $paste->hash,
         ));
