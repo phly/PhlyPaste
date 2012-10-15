@@ -22,7 +22,7 @@ class Paste
     public $language = 'txt';
 
     /**
-     * @Annotation\Required(true)
+     * @Annotation\Required(false)
      * @Annotation\Type("Zend\Form\Element\Checkbox")
      * @Annotation\Options({"checked_value":"true","unchecked_value":"false","label":"Private?"})
      */

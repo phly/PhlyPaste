@@ -2,18 +2,25 @@
 <h1>Pastes</h1>
 <?php if (0 == count($this->pastes)): ?>
 <p>No pastes found!</p>
-<?php else: 
-    foreach ($this->pastes as $paste):
-        echo $this->render('phly-paste/paste/summary', array('paste' => $paste));
-    endforeach;
-    $paginationInfo = $this->placeholder('phly-paste-pagination');
-    if (!isset($paginationInfo->route)) {
-        $paginationInfo->route  = 'phly-peep/list';
-        $paginationInfo->params = array();
-    }
-    echo $this->paginationControl($this->pastes, 'Sliding', 'phly-paste/paste/pagination-control');
+</div></section>
+<?php
+    return;
 endif;
+foreach ($this->pastes as $paste):
+    echo $this->render('phly-paste/paste/summary', array('paste' => $paste));
+endforeach;
 ?>
 
 </div></section>
 
+<section class="phly-paste row"><div class="span8">
+<?php
+$paginationInfo = $this->placeholder('phly-paste-pagination');
+if (!isset($paginationInfo->route)) {
+    $paginationInfo->route  = 'phly-paste/list';
+    $paginationInfo->params = array();
+}
+echo $this->paginationControl($this->pastes, 'Sliding', 'phly-paste/paste/pagination-control');
+?>
+
+</div></section>

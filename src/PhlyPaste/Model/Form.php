@@ -24,9 +24,10 @@ abstract class Form
             'type' => 'Zend\Form\Element\Button',
             'name' => 'paste',
             'options' => array(
-                'value' => 'Paste',
+                'label' => 'Paste',
             ),
             'attributes' => array(
+                'type'  => 'submit',
                 'class' => 'btn btn-primary',
             ),
         ));

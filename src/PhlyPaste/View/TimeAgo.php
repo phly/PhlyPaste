@@ -8,7 +8,7 @@ class TimeAgo extends AbstractHelper
 {
     public function __invoke($timestamp)
     {
-        if (!is_int($timestamp) || !is_numeric($timestamp)) {
+        if (!is_int($timestamp) && !is_numeric($timestamp)) {
             return '';
         }
 

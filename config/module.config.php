@@ -1,12 +1,9 @@
 <?php
 return array(
     'phly-paste' => array(
-        'service_alias'          => 'PhlyPaste/MongoService',
         'mongo_collection_alias' => 'PhlyPaste/MongoCollection',
         'mongo_collection_name'  => 'pastes',
-        'mongo_db_alias'         => 'PhlyPaste/MongoDB',
         'mongo_db_name'          => 'site',
-        'mongo_alias'            => 'PhlyPaste/Mongo',
         'mongo_options'          => array(
             'server'  => 'mongodb://localhost:27017',
             'options' => array(
@@ -14,9 +11,9 @@ return array(
             ),
         ),
     ),
-    'controllers' => array(
-        'invokables' => array(
-            'PhlyPaste\Controller\Paste' => 'PhlyPaste\Controller\PasteController',
+    'service_manager' => array(
+        'aliases' => array(
+            'PhlyPaste\PasteService' => 'PhlyPaste\MongoService',
         ),
     ),
     'view_helpers' => array(
@@ -52,11 +49,13 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
-                            'type' => 'Literal',
-                            'options' => array(
-                                'route' => '.js',
-                                'defaults' => array(
-                                    'action' => 'embed',
+                            'embed' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '.js',
+                                    'defaults' => array(
+                                        'action' => 'embed',
+                                    ),
                                 ),
                             ),
                         ),

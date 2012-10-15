@@ -44,8 +44,8 @@ class MongoPasteService implements PasteServiceInterface
      */
     public function fetch($hash)
     {
-        $result = $this->collection->findOne(array('hash' => $hash));
-        if ($result === null) {
+        $data = $this->collection->findOne(array('hash' => $hash));
+        if ($data === null) {
             return null;
         }
         $paste = new Paste();

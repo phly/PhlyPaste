@@ -2,7 +2,7 @@
 $form = $this->form;
 $form->setAttributes(array(
     'method' => 'post',
-    'url'    => $this->url('phly-paste/process'),
+    'action' => $this->url('phly-paste/process'),
     'class'  => 'well vertical',
 ));
 echo $this->form()->openTag($form);

@@ -31,27 +31,23 @@ class Module
     {
         return array(
             'factories' => array(
-                'PhlyPaste/MongoService' => function ($services) {
-                    $config     = $services->get('config');
-                    $collectionServiceName = $config['phly-paste']['mongo_collection_alias'];
-                    $collection = $services->get($collectionServiceName);
+                'PhlyPaste\MongoService' => function ($services) {
+                    $collection = $services->get('PhlyPaste\MongoCollection');
                     return new Model\MongoPasteService($collection);
                 },
-                'PhlyPaste/MongoCollection' => function ($services) {
+                'PhlyPaste\MongoCollection' => function ($services) {
                     $config         = $services->get('config');
-                    $dbServiceName  = $config['phly-paste']['mongo_db_alias'];
                     $collectionName = $config['phly-paste']['mongo_collection_name'];
-                    $dbService      = $services->get($dbServiceName);
+                    $dbService      = $services->get('PhlyPaste\MongoDB');
                     return new MongoCollection($dbService, $collectionName);
                 },
-                'PhlyPaste/MongoDB' => function ($services) {
+                'PhlyPaste\MongoDB' => function ($services) {
                     $config           = $services->get('config');
-                    $mongoServiceName = $config['phly-paste']['mongo_alias'];
                     $dbName           = $config['phly-paste']['mongo_db_name'];
-                    $mongoService     = $services->get($mongoServiceName);
+                    $mongoService     = $services->get('PhlyPaste\Mongo');
                     return new MongoDB($mongoService, $dbName);
                 },
-                'PhlyPaste/Mongo' => function ($services) {
+                'PhlyPaste\Mongo' => function ($services) {
                     $config  = $services->get('config');
                     $connOptions = $config['phly-paste']['mongo_options'];
                     return new Mongo($connOptions['server'], $connOptions['options']);
@@ -65,11 +61,8 @@ class Module
         return array(
             'factories' => array(
                 'PhlyPaste\Controller\Paste' => function ($controllers) {
-                    $services = $controllers->getServiceLocator();
-                    $config   = $services->get('config');
-
-                    $pasteServiceName = $config['phly-paste']['service_alias'];
-                    $pasteService     = $services->get($pasteServiceName);
+                    $services     = $controllers->getServiceLocator();
+                    $pasteService = $services->get('PhlyPaste\PasteService');
 
                     $controller = new Controller\PasteController();
                     $controller->setPasteService($pasteService);

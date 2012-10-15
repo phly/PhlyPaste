@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use MongoCursor;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
-class PaginatorAdapter extends PaginatorAdapter
+class HydratingPaginatorAdapter extends PaginatorAdapter
 {
     protected $cursor;
     protected $hydrator;
