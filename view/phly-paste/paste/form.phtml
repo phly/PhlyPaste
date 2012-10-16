@@ -1,0 +1,28 @@
+<?php
+$form = $this->form;
+$form->setAttributes(array(
+    'method' => 'post',
+    'action' => $this->url('phly-paste/process'),
+    'class'  => 'well vertical',
+));
+$content = $form->get('content');
+$content->setAttributes(array(
+    'cols'  => 80,
+    'rows'  => 25,
+    'class' => 'input-xxlarge',
+));
+$content->setOptions(array(
+    'label' => 'Paste content:',
+));
+$form->get('captcha')->setOptions(array(
+    'label' => 'Please verify you area human: ',
+));
+echo $this->form()->openTag($form);
+foreach ($this->form as $element) {
+    if ('paste' == $element->getName()) {
+        continue;
+    }
+    echo $this->formRow($element);
+}
+echo '<button type="submit" name="paste" class="btn btn-primary" value="">Paste</button>';
+echo $this->form()->closeTag();

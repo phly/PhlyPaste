@@ -1,0 +1,45 @@
+{
+    "name": "phly/phly-paste",
+    "description": "ZF2 Module implementing a pastebin",
+    "type": "library",
+    "keywords": [
+        "zf2",
+        "zend",
+        "module",
+        "pastebin"
+    ],
+    "homepage": "https://github.com/weierophinney/PhlyPaste",
+    "authors": [
+        {
+            "name": "Matthew Weier O'Phinney",
+            "email": "matthew@weierophinney.net",
+            "homepage": "http://mwop.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zend-authentication": "2.*",
+        "zendframework/zend-captcha": "2.*",
+        "zendframework/zend-form": "2.*",
+        "zendframework/zend-mvc": "2.*",
+        "zendframework/zend-view": "2.*",
+        "zendframework/zend-stdlib": "2.*",
+        "doctrine/common": ">=2.1",
+        "easybook/geshi": "dev-master",
+        "nick4fake/htmlpurifier": "dev-master"
+    },
+    "suggest": {
+        "EdpMarkdown": "Install Markdown to allow markdown pastes: git clone --recursive git://github.com/EvanDotPro/EdpMarkdown.git vendor/EdpMarkdown",
+        "phly/phly-mongo": "Install phly/phly-mongo if you wish to use the Mongo adapters",
+        "zendframework/zend-db": "Install Zend\\Db if you plan to use the TableGatewayPasteService",
+        "zendframework/zendservice-recaptcha": "Install ReCaptcha service if you plan to use ReCaptcha"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhlyPaste": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}

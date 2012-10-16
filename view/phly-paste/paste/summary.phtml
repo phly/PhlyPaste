@@ -1,0 +1,18 @@
+<figure class="clearfix row">
+    <figcaption>
+        <span class="pull-left span3">
+            <a href="<?php echo $this->url('phly-paste/view', array('paste' => $paste->hash)) ?>">View</a>
+            <?php
+                $lines = $this->numberOfLines($paste->content);
+                if (!empty($lines)) {
+                    echo '&nbsp;&nbsp;' . $lines;
+                }
+            ?>
+        </span>
+        <span class="pull-right span4" style="text-align:right">
+            <?php echo $this->timeAgo($paste->timestamp) ?>
+        </span>
+    </figcaption>
+
+    <pre class="span8 clearfix"><?php echo $this->escapeHtml(substr($this->paste->content, 0, 100)) ?></pre>
+</figure>
