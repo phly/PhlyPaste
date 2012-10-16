@@ -72,7 +72,7 @@ GET (no hash)
 
     http GET http://paste.local/paste/api/paste
 
-    HTTP/1.0 200 Created
+    HTTP/1.0 200 Ok
     Content-Type: application/json
 
     {
@@ -97,7 +97,7 @@ GET (with hash)
 
     http GET http://paste.local/paste/api/paste
 
-    HTTP/1.0 200 Created
+    HTTP/1.0 200 Ok
     Content-Type: application/json
 
     {

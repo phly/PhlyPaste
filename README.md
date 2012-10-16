@@ -88,3 +88,168 @@ $collection->ensureIndex(array('timestamp' => -1));
 ```
 
 You can do the above in your factory, if desired.
+
+Zend\Db\TableGateway Usage
+--------------------------
+
+Currently, only SQLite is supported. To set up your database, do the following
+from your application root:
+
+```bash
+sqlite data/paste.db < vendor/phly/phly-paste/config/schema.sqlite.sql
+```
+
+Make sure the `data/paste.db` file is writeable by your webserver.
+
+Then create the following configuration in your `config/autoload/global.php`
+file (or some other autoloadable configuration file in that directory):
+
+```php
+return array(
+    'db' => array(
+        'driver' => 'Pdo',
+        'dsn'    => 'sqlite:' . getcwd() . '/data/paste.db',
+    ),
+    'service_manager' => array(
+        'aliases' => array(
+            'PhlyPaste\PasteService' => 'PhlyPaste\TableGatewayService',
+        ),
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+        ),
+    ),
+);
+```
+
+Once this is in place, you should be able to create and lists pastes.
+
+CAPTCHA setup
+-------------
+
+By default, the "Dumb" CAPTCHA adapter is used. You can setup an alternate one
+by providing either global or local configuration under the "phly_paste" key's
+"captcha" subkey. Configuration is consistent with `Zend\Captcha\Factory`:
+
+```php
+return array(
+    'phly_paste' => array(
+        'captcha' => array(
+            'class' => 'CaptchaClassName',
+            'options' => array(/* array of adapter-specific options */),
+        ),
+    ),
+);
+```
+
+You can disable CAPTCHA for authenticated users. To do this, you need to define
+an alias named `PhlyPaste\AuthService` that points to a service returning a
+`Zend\Authentication\AuthenticationService` instance. Once enabled, CAPTCHAs
+will no longer be displayed for currently authenticated users.
+
+API
+---
+
+An API is also enabled for this module. By default, it goes to the route
+described by the path '/paste/api/paste'. The API is JSON only, and expects that
+the Accept header matches against the media type 'application/json'. 
+
+The following operations are available:
+
+GET /paste/api/paste[?page=X]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Retrieves a single page of a list of pastes. The payload looks like the
+following:
+
+    HTTP/1.0 200 Ok
+    Content-Type: application/json
+
+    {
+        "links": [
+            {"rel": "canonical", "href": "http://pages.local/paste"},
+            {"rel": "self", "href": "http://pages.local/paste/api/paste"},
+            {"rel": "first", "href": "http://pages.local/paste/api/paste"},
+            {"rel": "last", "href": "http://pages.local/paste/api/paste?page=X"},
+            {"rel": "next", "href": "http://pages.local/paste/api/paste?page=2"}
+        ]
+        "items": [
+            [
+                {"rel": "canonical", "href": "http://pages.local/paste/XYZ"},
+                {"rel": "item", "href": "http://pages.local/paste/api/paste/XYZ"}
+            ],
+            /* ... */
+        ]
+    }
+
+GET /paste/api/paste/XYZ12ABC
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fetches information on a single paste. The payload looks like the following:
+
+    HTTP/1.0 200 Ok
+    Content-Type: application/json
+
+    {
+        "links": [
+            {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+            {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"},
+            {"rel": "up", "href": "http://pages.local/paste/api/paste"}
+        ],
+        "title": "...",
+        "language": "...",
+        "timestamp": "...",
+    }
+
+POST /paste/api/paste
+^^^^^^^^^^^^^^^^^^^^^
+
+Expects a JSON body, like the following:
+
+    Accept: application/json
+    Content-Type: application/json
+    X-PhlyPaste-Token: yourtoken
+
+    {
+        "language": "txt",
+        "private": "false",
+        "content": "This is the paste content..."
+    }
+
+You will get the following response payload:
+
+    HTTP/1.0 201 Created
+    Location: http://paste.local/paste/XYZ12ABC
+    Content-Type: application/json
+
+    {
+        "links": [
+            {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+            {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"}
+        ]
+    }
+
+Authorization Tokens for Submitting Pastes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As you may have noticed in the previous example, the POST operation requires an
+"X-PhlyPaste-Token" header. Tokens are verified against the
+`PhlyPaste\TokenService` service, which is simply a
+`PhlyPaste\Model\TokenServiceInterface` implementation. By default, a single
+implementation is provided, `PhlyPaste\Model\ArrayTokenService`. This
+implementation expects that the configuration includes tokens:
+
+```php
+return array(
+    'phly_paste' => array(
+        'tokens' => array(
+            'yourtoken',
+        ),
+    ),
+);
+```
+
+If you use this approach, make sure that tokens are defined in `.local.php`
+files that are stored outside your repository.
+
+Alternately, you may create your own implementation of the
+`TokenServiceInterface` that can be used to verify tokens.
