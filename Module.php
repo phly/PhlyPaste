@@ -2,9 +2,6 @@
 
 namespace PhlyPaste;
 
-use Mongo;
-use MongoCollection;
-use MongoDB;
 use Zend\Captcha\Factory as CaptchaFactory;
 
 class Module

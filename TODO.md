@@ -15,7 +15,7 @@ X Second tier functionality:
 - Third tier functionality:
   X DB service
   X API
-  - No CAPTCHA if user is authenticated
+  X No CAPTCHA if user is authenticated
   - Display themes
   - Embed paste via JS
   - Array service (?)

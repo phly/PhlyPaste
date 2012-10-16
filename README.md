@@ -11,6 +11,10 @@ Install via composer:
 ```javascript
 {
     "minimum-stability": "dev"
+    "repositories": [
+        "type": "composer",
+        "url": "http://packages.zendframework.com/"
+    ],
     "require": {
         "phly/phly-paste": "dev-master"
     }
