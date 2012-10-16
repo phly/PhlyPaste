@@ -155,8 +155,8 @@ the Accept header matches against the media type 'application/json'.
 
 The following operations are available:
 
-GET /paste/api/paste[?page=X]
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+### GET /paste/api/paste[?page=X]
+
 
 Retrieves a single page of a list of pastes. The payload looks like the
 following:
@@ -181,8 +181,7 @@ following:
         ]
     }
 
-GET /paste/api/paste/XYZ12ABC
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+### GET /paste/api/paste/XYZ12ABC
 
 Fetches information on a single paste. The payload looks like the following:
 
@@ -200,8 +199,7 @@ Fetches information on a single paste. The payload looks like the following:
         "timestamp": "...",
     }
 
-POST /paste/api/paste
-^^^^^^^^^^^^^^^^^^^^^
+### POST /paste/api/paste
 
 Expects a JSON body, like the following:
 
@@ -228,8 +226,7 @@ You will get the following response payload:
         ]
     }
 
-Authorization Tokens for Submitting Pastes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+### Authorization Tokens for Submitting Pastes
 
 As you may have noticed in the previous example, the POST operation requires an
 "X-PhlyPaste-Token" header. Tokens are verified against the
