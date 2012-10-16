@@ -10,10 +10,12 @@ Install via composer:
 
 ```javascript
 {
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
     "repositories": [
-        "type": "composer",
-        "url": "http://packages.zendframework.com/"
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        }
     ],
     "require": {
         "phly/phly-paste": "dev-master"
@@ -28,6 +30,8 @@ To allow Markdown as a type of markup, you'll also need to install
 cd vendor
 git clone --recursive git://github.com/EvanDotPro/EdpMarkdown.git
 ```
+
+Next, add `EdpMarkdown` to your modules array in `config/application.config.php`.
 
 Mongo Usage
 -----------
