@@ -7,6 +7,9 @@ return array(
         'captcha' => array(
             'class' => 'Dumb',
         ),
+        'table_gateway' => array(
+            'table' => 'paste',
+        ),
     ),
     'service_manager' => array(
         'aliases' => array(
@@ -17,6 +20,12 @@ return array(
             // PhlyPaste\CaptchaService is defined in PhlyPaste\Module::getServiceConfig()
             // and uses the captcha configuration from this file.
             'PhlyPaste\Captcha'      => 'PhlyPaste\CaptchaService',
+            // The following are for use with the TableGatewayPasteService. The 
+            // first indicates the DB Adapter service to use, and the second the
+            // default TableGateway service (which is defined in the Module class
+            // and which uses the module-specific configuration section earlier).
+            'PhlyPaste\DbAdapter'           => 'Zend\Db\Adapter\Adapter',
+            'PhlyPaste\TableGateway'        => 'PhlyPaste\PasteTable',
         ),
     ),
     'view_helpers' => array(

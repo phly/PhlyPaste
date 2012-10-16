@@ -4,7 +4,7 @@ namespace PhlyPaste\Model;
 use Zend\Form\Annotation;
 
 /**
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ObjectProperty")
+ * @Annotation\Hydrator("Zend\Stdlib\Hydrator\Reflection")
  */
 class Paste
 {

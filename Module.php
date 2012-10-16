@@ -39,6 +39,16 @@ class Module
                 $captcha = $services->get('PhlyPaste\Captcha');
                 return new Model\Form($captcha);
             },
+            'PhlyPaste\PasteTable' => function ($services) {
+                $config = $services->get('config');
+                $config = $config['phly_paste']['table_gateway'];
+                $adapter = $services->get('PhlyPaste\DbAdapter');
+                return new Model\PasteTable($adapter, $config['table']);
+            },
+            'PhlyPaste\TableGatewayService' => function ($services) {
+                $table = $services->get('PhlyPaste\TableGateway');
+                return new Model\TableGatewayPasteService($table);
+            },
         ));
     }
 
@@ -48,12 +58,12 @@ class Module
             'factories' => array(
                 'PhlyPaste\Controller\Paste' => function ($controllers) {
                     $services     = $controllers->getServiceLocator();
-                    $pasteService = $services->get('PhlyPaste\PasteService');
                     $formFactory  = $services->get('PhlyPaste\FormFactory');
+                    $pasteService = $services->get('PhlyPaste\PasteService');
 
                     $controller = new Controller\PasteController();
-                    $controller->setPasteService($pasteService);
                     $controller->setFormFactory($formFactory);
+                    $controller->setPasteService($pasteService);
 
                     return $controller;
                 },

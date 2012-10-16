@@ -4,7 +4,7 @@ namespace PhlyPaste\Model;
 use MongoCollection;
 use PhlyMongo as Mongo;
 use Zend\Paginator\Paginator;
-use Zend\Stdlib\Hydrator\ObjectProperty as ObjectPropertyHydrator;
+use Zend\Stdlib\Hydrator\Reflection as ReflectionHydrator;
 
 class MongoPasteService implements PasteServiceInterface
 {
@@ -14,7 +14,7 @@ class MongoPasteService implements PasteServiceInterface
     public function __construct(MongoCollection $collection)
     {
         $this->collection = $collection;
-        $this->hydrator   = new ObjectPropertyHydrator();
+        $this->hydrator   = new ReflectionHydrator();
     }
 
     /**
