@@ -13,7 +13,10 @@ X Second tier functionality:
   X Split based on "##" sections
   X Move PhlyPaste\Mongo stuff into separate module
 - Third tier functionality:
-  - Display themes
+  X DB service
   - API
+  - Display themes
   - Embed paste via JS
+  - Array service (?)
+  - Cacheable service decorator (?)
   - Dasbit plugin: !paste <id> -> return link and title/first line
