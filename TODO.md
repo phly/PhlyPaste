@@ -14,7 +14,8 @@ X Second tier functionality:
   X Move PhlyPaste\Mongo stuff into separate module
 - Third tier functionality:
   X DB service
-  - API
+  X API
+  - No CAPTCHA if user is authenticated
   - Display themes
   - Embed paste via JS
   - Array service (?)
@@ -24,17 +25,17 @@ X Second tier functionality:
 API
 ---
 
-- X-PhlyPaste-Token: <token>
-  - Use API keys from configuration by default
-- /paste/api/paste{/:paste}
-  - POST to create
-    - Return location of canonical HTML in 201 status
-  - GET to get list; $page QUERY variable to determine page of results
-    - Ideally, should include prev/next page relation links in results
-    - each item would link to both canonical HTML and API version
-  - GET with ID
-    - return link to canonical HTML and first line
-- See https://gist.github.com/1912431 for links example. Looks like this is a
+X X-PhlyPaste-Token: <token>
+  X Use API keys from configuration by default
+X /paste/api/paste{/:paste}
+  X POST to create
+    X Return location of canonical HTML in 201 status
+  X GET to get list; $page QUERY variable to determine page of results
+    X Ideally, should include prev/next page relation links in results
+    X each item would link to both canonical HTML and API version
+  X GET with ID
+    X return link to canonical HTML and first line
+X See https://gist.github.com/1912431 for links example. Looks like this is a
   winner:
 
     {

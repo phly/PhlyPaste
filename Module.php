@@ -37,7 +37,11 @@ class Module
             },
             'PhlyPaste\FormFactory' => function ($services) {
                 $captcha = $services->get('PhlyPaste\Captcha');
-                return new Model\Form($captcha);
+                $auth    = null;
+                if ($services->has('PhlyPaste\AuthService')) {
+                    $auth = $services->get('PhlyPaste\AuthService');
+                }
+                return new Model\Form($captcha, $auth);
             },
             'PhlyPaste\PasteTable' => function ($services) {
                 $config = $services->get('config');

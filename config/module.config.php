@@ -10,6 +10,9 @@ return array(
         'table_gateway' => array(
             'table' => 'paste',
         ),
+        // An array of API tokens. This is used with the ArrayTokenService. If you
+        // want to store tokens in another fashion, you can implement the 
+        // TokenServiceInterface and setup an alias for it.
         'tokens' => array(
         ),
     ),
@@ -31,6 +34,11 @@ return array(
             // Default token service is the ArrayTokenService; tokens are set via
             // configuration, in the 'tokens' section of the 'phly_paste' configuration.
             'PhlyPaste\TokenService'        => 'PhlyPaste\ArrayTokenService',
+            // You can optionally choose to disable captchas if a user is authenticated.
+            // If the following service is available, and an identity is found, 
+            // captcha's will not be displayed.
+            // To enable this functionality, provide the following alias and/or service
+            // 'PhlyPaste\AuthService'         => 'Zend\Authentication\AuthenticationService',
         ),
     ),
     'view_helpers' => array(
