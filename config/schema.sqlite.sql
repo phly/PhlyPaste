@@ -5,7 +5,8 @@ CREATE TABLE paste
     private   VARCHAR(5) NOT NULL CHECK (private IN ('true', 'false')),
     content   TEXT NOT NULL,
     timestamp INTEGER NOT NULL,
-    timezone  VARCHAR(32) NOT NULL DEFAULT "UTC"
+    timezone  VARCHAR(32) NOT NULL DEFAULT "UTC",
+    token     VARCHAR(256)
 );
 
 CREATE INDEX paste_public_sorted ON paste(private, timestamp DESC);

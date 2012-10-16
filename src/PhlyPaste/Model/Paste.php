@@ -14,6 +14,11 @@ class Paste
     public $hash;
 
     /**
+     * @Annotation\Exclude()
+     */
+    public $token;
+
+    /**
      * @Annotation\Required(true)
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Filter({"name":"StringTrim"})

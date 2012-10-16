@@ -49,6 +49,11 @@ class Module
                 $table = $services->get('PhlyPaste\TableGateway');
                 return new Model\TableGatewayPasteService($table);
             },
+            'PhlyPaste\ArrayTokenService' => function ($services) {
+                $config = $services->get('config');
+                $tokens = $config['phly_paste']['tokens'];
+                return new Model\ArrayTokenService($tokens);
+            },
         ));
     }
 
@@ -64,6 +69,19 @@ class Module
                     $controller = new Controller\PasteController();
                     $controller->setFormFactory($formFactory);
                     $controller->setPasteService($pasteService);
+
+                    return $controller;
+                },
+                'PhlyPaste\Controller\Api' => function ($controllers) {
+                    $services     = $controllers->getServiceLocator();
+                    $formFactory  = $services->get('PhlyPaste\FormFactory');
+                    $pasteService = $services->get('PhlyPaste\PasteService');
+                    $tokenService = $services->get('PhlyPaste\TokenService');
+
+                    $controller = new Controller\ApiController();
+                    $controller->setFormFactory($formFactory);
+                    $controller->setPasteService($pasteService);
+                    $controller->setTokenService($tokenService);
 
                     return $controller;
                 },

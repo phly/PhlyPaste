@@ -10,6 +10,8 @@ return array(
         'table_gateway' => array(
             'table' => 'paste',
         ),
+        'tokens' => array(
+        ),
     ),
     'service_manager' => array(
         'aliases' => array(
@@ -26,6 +28,9 @@ return array(
             // and which uses the module-specific configuration section earlier).
             'PhlyPaste\DbAdapter'           => 'Zend\Db\Adapter\Adapter',
             'PhlyPaste\TableGateway'        => 'PhlyPaste\PasteTable',
+            // Default token service is the ArrayTokenService; tokens are set via
+            // configuration, in the 'tokens' section of the 'phly_paste' configuration.
+            'PhlyPaste\TokenService'        => 'PhlyPaste\ArrayTokenService',
         ),
     ),
     'view_helpers' => array(
@@ -106,6 +111,31 @@ return array(
                             'route'    => 'process',
                             'defaults' => array(
                                 'action' => 'process',
+                            ),
+                        ),
+                    ),
+                    'api' => array(
+                        'type'    => 'Literal',
+                        'options' => array(
+                            'route'    => 'api/paste',
+                            'defaults' => array(
+                                'controller' => 'Api',
+                                'action'     => 'list',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'item' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => '/:paste',
+                                    'constraints' => array(
+                                        'paste' => '[a-f0-9]{8}',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'fetch',
+                                    ),
+                                ),
                             ),
                         ),
                     ),
