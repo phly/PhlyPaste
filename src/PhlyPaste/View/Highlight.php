@@ -96,6 +96,7 @@ class Highlight extends AbstractHelper
     {
         $geshi = new GeSHi($content, $language);
         $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 5);
-        return $geshi->parse_code();
+        $code = $geshi->parse_code();
+        return $this->sanitiseHtml($code);
     }
 }
