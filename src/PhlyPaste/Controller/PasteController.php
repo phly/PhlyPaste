@@ -25,6 +25,10 @@ class PasteController extends AbstractActionController
         $this->pastes = $pastes;
     }
 
+    public function helpAction()
+    {
+    }
+
     public function indexAction()
     {
         return new ViewModel(array(
