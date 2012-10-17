@@ -62,6 +62,15 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'help' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => 'help',
+                            'defaults' => array(
+                                'action' => 'help',
+                            ),
+                        ),
+                    ),
                     'view' => array(
                         'type'    => 'Segment',
                         'options' => array(

@@ -3,6 +3,40 @@ PhlyPaste - ZF2 Pastebin Module
 
 This is a module implementing a ZF2 pastebin.
 
+Features
+--------
+
+- Normal pastebin features: syntax highlighting by language, short URLs, ability
+  to mark pastes as "private" (meaning they do not show up in listings).
+- Ability to specify "markdown" as the language; this will pass the paste
+  through the markdown parser to generate markup.
+- Ability to specify "sections" of code, and thus paste multiple "files" in the
+  same paste. Any line starting with "##" signifies a section. The section will
+  contain any text following "##" as the title:
+
+    ## test.txt
+    This is the first section.
+
+    ## test2.txt
+    This is the second section.
+
+  Additionally, if you place a language name in brackets, that language will be
+  used for syntax highlighting for that section:
+
+    ## test.js [javascript]
+    {
+        "text": "highlighted as javascript"
+    }
+
+    ## test.php [php]
+    echo "This is highlighted as PHP";
+
+  Developers familiar with pastie.org will find the above syntax familiar.
+- An API for listing pastes, retrieving individual paste details, and submitting
+  pastes. The paste retrieval portion of the API does not require authorization,
+  but submitting a paste requires an authorization token. (See the section
+  titled "API" below for details.
+
 Installation
 ------------
 
