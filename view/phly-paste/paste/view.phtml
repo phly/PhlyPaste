@@ -1,8 +1,14 @@
 <article class="row">
 <div class="span8">
+    <?php if ($paste->language == 'markdown'): ?>
+    <div class="well"><?php
+        echo $this->highlight($this->paste->content, $this->paste->language);
+    ?></div>
+    <?php else: ?>
     <pre><?php 
         echo $this->highlight($this->paste->content, $this->paste->language);
     ?></pre>
+    <?php endif ?>
     
     <dl>
         <dt>Pasted</dt>
