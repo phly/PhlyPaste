@@ -2,6 +2,8 @@
 
 namespace PhlyPaste\View;
 
+use DOMDocument;
+use DOMXPath;
 use GeSHi;
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -47,7 +49,7 @@ class Highlight extends AbstractHelper
 
             $segment = trim($segments[$i + 1]);
             $aggregate .= sprintf(
-                "<h4 class=\"code title\">%s</code>\n%s",
+                "<h4 class=\"code title\">%s</h4>\n%s",
                 $escaper($title),
                 $this->highlightCode($segment, $lang)
             );
@@ -81,6 +83,7 @@ class Highlight extends AbstractHelper
     protected function sanitiseHtml($dirtyHtml)
     {
         $config   = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
         $purifier = new HTMLPurifier($config);
         return $purifier->purify($dirtyHtml);
     }
@@ -96,6 +99,7 @@ class Highlight extends AbstractHelper
     {
         $geshi = new GeSHi($content, $language);
         $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS, 5);
+        $geshi->set_header_type(GESHI_HEADER_DIV);
         $code = $geshi->parse_code();
         return $this->sanitiseHtml($code);
     }
