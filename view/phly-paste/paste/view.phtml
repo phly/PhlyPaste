@@ -8,9 +8,6 @@
         <dt>Pasted</dt>
         <dd><?php echo $this->timeAgo($this->paste->timestamp) ?></dd>
 
-        <dt>Embed</dt>
-        <dd><input type="text" value="&lt;script src='http://<?php echo $_SERVER['SERVER_NAME'] . $this->url('phly-paste/view/embed', array('paste' => $this->paste->hash)) ?>'&gt;&lt;/script&gt;"/></dd>
-
         <dt>Act</dt>
         <dd><a href="<?php echo $this->url('phly-paste/view/raw', array('paste' => $paste->hash)) ?>">Raw</a></dd>
         <dd><a href="<?php echo $this->url('phly-paste/view/repaste', array('paste' => $paste->hash)) ?>">Repaste</a></dd>

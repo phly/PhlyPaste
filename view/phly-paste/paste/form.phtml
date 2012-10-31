@@ -1,28 +1,71 @@
 <?php
-$form = $this->form;
-$form->setAttributes(array(
-    'method' => 'post',
-    'action' => $this->url('phly-paste/process'),
-    'class'  => 'well vertical',
-));
-$content = $form->get('content');
-$content->setAttributes(array(
-    'cols'  => 80,
-    'rows'  => 25,
-    'class' => 'input-xxlarge',
-));
-$content->setOptions(array(
-    'label' => 'Paste content:',
-));
-$form->get('captcha')->setOptions(array(
-    'label' => 'Please verify you area human: ',
-));
-echo $this->form()->openTag($form);
-foreach ($this->form as $element) {
-    if ('paste' == $element->getName()) {
-        continue;
-    }
-    echo $this->formRow($element);
-}
-echo '<button type="submit" name="paste" class="btn btn-primary" value="">Paste</button>';
-echo $this->form()->closeTag();
+$form     = $this->form;
+$messages = $form->getMessages();
+?>
+<form action="<?php echo $this->url('phly-paste/process') ?>" method="post" name="Paste" class="well form-horizontal" id="Paste">
+<div class="control-group">
+    <label class="control-label" for="language">Language:</label>
+    <div class="controls">
+        <?php echo $this->formElement($form->get('language')) ?>
+    </div>
+    <?php if (isset($messages['language']) && !empty($messages['language'])): ?>
+    <span class="help-block error">
+        <?php echo implode("<br />\n", $messages['language']) ?>
+    </span>
+    <?php endif ?>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="private">Private?</label>
+    <div class="controls">
+        <?php echo $this->formElement($form->get('private')) ?>
+    </div>
+    <?php if (isset($messages['private']) && !empty($messages['private'])): ?>
+    <span class="help-block error">
+        <?php echo implode("<br />\n", $messages['private']) ?>
+    </span>
+    <?php endif ?>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="content">Paste content:</label>
+    <div class="controls">
+        <?php 
+            $content = $form->get('content');
+            $content->setAttribute('class', 'input-xlarge');
+            $content->setAttribute('rows', 25);
+            echo $this->formElement($content);
+        ?>
+    </div>
+    <?php if (isset($messages['content']) && !empty($messages['content'])): ?>
+    <span class="help-block error">
+        <?php echo implode("<br />\n", $messages['content']) ?>
+    </span>
+    <?php endif ?>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="captcha">Please verify you are human:</label>
+    <div class="controls">
+        <?php echo $this->formElement($form->get('captcha')) ?>
+    </div>
+    <?php if (isset($messages['captcha']) && !empty($messages['captcha'])): ?>
+    <span class="help-block error">
+        <?php echo implode("<br />\n", $messages['captcha']) ?>
+    </span>
+    <?php endif ?>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+    <?php echo $this->formElement($form->get('secure')) ?>
+    <?php if (isset($messages['secure']) && !empty($messages['secure'])): ?>
+    <span class="help-block error">
+        We detected a potential security problem with your submission; please try submitting again.
+    </span>
+    <?php endif ?>
+
+    <button type="submit" name="paste" class="btn btn-primary" value="">Paste</button>
+    </div>
+</div>
+</form>
