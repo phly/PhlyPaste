@@ -22,7 +22,25 @@ class Paste
      * @Annotation\Required(true)
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Filter({"name":"StringTrim"})
-     * @Annotation\Options({"label":"Language:","value_options":{"txt":"Plain Text","javascript":"JavaScript","php":"PHP","markdown":"Markdown","xml":"XML","dosini":"INI"}})
+     * @Annotation\Options({"label":"Language:",
+     *     "value_options":{
+     *         "apache":"Apache Config",
+     *         "diff":"Diff",
+     *         "html4strict":"HTML",
+     *         "ini":"INI",
+     *         "javascript":"JavaScript",
+     *         "jquery":"jQuery",
+     *         "markdown":"Markdown",
+     *         "php":"PHP",
+     *         "text":"Plain Text",
+     *         "python":"Python",
+     *         "ruby":"Ruby",
+     *         "bash":"Shell Script",
+     *         "sql":"SQL",
+     *         "vim":"Vim",
+     *         "xml":"XML"
+     *     }
+     * })
      */
     public $language = 'txt';
 
