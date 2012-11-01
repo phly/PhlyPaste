@@ -142,6 +142,15 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
+                            'languages' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => '/languages',
+                                    'defaults' => array(
+                                        'action'     => 'languages',
+                                    ),
+                                ),
+                            ),
                             'item' => array(
                                 'type'    => 'Segment',
                                 'options' => array(
