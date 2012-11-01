@@ -54,6 +54,22 @@ class ApiController extends AbstractActionController
         return parent::onDispatch($e);
     }
 
+    public function languagesAction()
+    {
+        $request = $this->getRequest();
+        if (!$request->isGet()) {
+            return $this->createError('invalid-method');
+        }
+        $form      = $this->formFactory->factory();
+        $element   = $form->get('language');
+        $options   = $element->getValueOptions();
+        $languages = array_keys($options);
+        $model     = new JsonModel(array(
+            'languages' => $languages,
+        ));
+        return $model;
+    }
+
     public function listAction()
     {
         $request = $this->getRequest();
