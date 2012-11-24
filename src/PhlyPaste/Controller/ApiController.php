@@ -214,7 +214,7 @@ class ApiController extends AbstractActionController
         );
     }
 
-    protected function createUnacceptableResponse()
+    protected function createUnacceptableResponse($e)
     {
         $response = $this->getResponse();
         $response->setStatusCode(406);
