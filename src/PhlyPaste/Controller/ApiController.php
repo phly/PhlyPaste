@@ -141,12 +141,15 @@ class ApiController extends AbstractActionController
             return $token;
         }
 
-        // get paste from raw body
-        $request = $this->getRequest();
-        $json    = $request->getContent();
+        $data          = array();
+        $isJsonRequest = $this->isJsonRequest();
+        if ($isJsonRequest) {
+            $data = $this->getDataFromJsonRequest();
+        }
 
-        // decode paste from json as assoc array
-        $data = json_decode($json, true);
+        if (!$isJsonRequest) {
+            $data = $this->getDataFromRawBody();
+        }
 
         // get form, and set paste data
         $form = $this->formFactory->factory();
@@ -211,7 +214,7 @@ class ApiController extends AbstractActionController
         );
     }
 
-    protected function createUnacceptableResponse()
+    protected function createUnacceptableResponse($e)
     {
         $response = $this->getResponse();
         $response->setStatusCode(406);
@@ -295,5 +298,49 @@ class ApiController extends AbstractActionController
         $this->baseUri = $uri->toString();
         $this->baseUri = rtrim($this->baseUri, '/');
         return $this->baseUri;
+    }
+
+    protected function isJsonRequest()
+    {
+        $request = $this->getRequest();
+        $headers = $request->getHeaders();
+        if (!$headers->has('Content-Type')) {
+            return false;
+        }
+        $header = $headers->get('Content-Type');
+        $type   = $header->getFieldValue();
+        $test   = stristr($type, 'json');
+        if (false === $test) {
+            return false;
+        }
+        if (empty($test)) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function getDataFromJsonRequest()
+    {
+        // get paste from raw body
+        $request = $this->getRequest();
+        $json    = $request->getContent();
+
+        // decode paste from json as assoc array
+        return json_decode($json, true);
+    }
+
+    protected function getDataFromRawBody()
+    {
+        $data    = array();
+        $request = $this->getRequest();
+        $query   = $request->getQuery();
+        $private = $query->get('private');
+        $private = null === $private   ? 'false'  : $private;
+        $private = is_string($private) ? $private : 'false';
+
+        $data['language'] = $query->get('language', 'txt');
+        $data['private']  = $private;
+        $data['content']  = $request->getContent();
+        return $data;
     }
 }
