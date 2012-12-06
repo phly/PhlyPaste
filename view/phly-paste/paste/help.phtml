@@ -73,7 +73,7 @@ return array(
 
         <p>
             A RESTful JSON API is provided by default, and is found at the path 
-            <code>/paste/api/paste</code>. It uses the <code>application/json</code>
+            <code>/paste/api/paste</code>. It uses the <code>application/hal+json</code>
             media type, and allows listing, fetching, and submitting pastes, as 
             detailed below.
         </p>
@@ -87,7 +87,7 @@ return array(
 
         <pre>
 HTTP/1.0 200 Ok
-Content-Type: application/json
+Content-Type: application/hal+json
 
 {
     "_links": {
@@ -116,7 +116,7 @@ Content-Type: application/json
 
         <pre>
 HTTP/1.0 200 Ok
-Content-Type: application/json
+Content-Type: application/hal+json
 
 {
     "_links": {
@@ -144,8 +144,8 @@ Content-Type: application/json
         </p>
 
         <pre>
-Accept: application/json
-Content-Type: application/json
+Accept: application/hal+json
+Content-Type: application/hal+json
 X-PhlyPaste-Token: yourtoken
 
 {
@@ -162,7 +162,7 @@ X-PhlyPaste-Token: yourtoken
         <pre>
 HTTP/1.0 201 Created
 Location: http://paste.local/paste/XYZ12ABC
-Content-Type: application/json
+Content-Type: application/hal+json
 
 {
     "_links": {
@@ -181,7 +181,7 @@ Content-Type: application/json
 
         <pre>
 POST /paste/api/paste?language=text&private=false
-Accept: application/json
+Accept: application/hal+json
 Content-Type: text/plain
 X-PhlyPaste-Token: yourtoken
 
@@ -200,7 +200,7 @@ This is the paste content...
 
         <pre>
 HTTP/1.0 200 Ok
-Content-Type: application/json
+Content-Type: application/hal+json
 
 {
     "languages": [
