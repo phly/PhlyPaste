@@ -55,6 +55,11 @@ class Module
                 $tokens = $config['phly_paste']['tokens'];
                 return new Model\ArrayTokenService($tokens);
             },
+            'PhlyPaste\JsonStrategy' => function ($services) {
+                $renderer = $services->get('ViewJsonRenderer');
+                $strategy = new View\JsonStrategy($renderer);
+                return $strategy;
+            },
         ));
     }
 
