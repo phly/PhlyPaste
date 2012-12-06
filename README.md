@@ -189,7 +189,8 @@ API
 
 An API is also enabled for this module. By default, it goes to the route
 described by the path '/paste/api/paste'. The API is JSON only, and expects that
-the Accept header matches against the media type 'application/json'. 
+the Accept header matches against the media type 'application/hal+json' (it also
+allows 'application/json', but 'application/hal+json' will always be returned). 
 
 The following operations are available:
 
@@ -203,13 +204,13 @@ following:
     Content-Type: application/json
 
     {
-        "links": [
-            {"rel": "canonical", "href": "http://pages.local/paste"},
-            {"rel": "self", "href": "http://pages.local/paste/api/paste"},
-            {"rel": "first", "href": "http://pages.local/paste/api/paste"},
-            {"rel": "last", "href": "http://pages.local/paste/api/paste?page=X"},
-            {"rel": "next", "href": "http://pages.local/paste/api/paste?page=2"}
-        ]
+        "_links": {
+            "canonical": {"rel": "canonical", "href": "http://pages.local/paste"},
+            "self": {"rel": "self", "href": "http://pages.local/paste/api/paste"},
+            "first": {"rel": "first", "href": "http://pages.local/paste/api/paste"},
+            "last": {"rel": "last", "href": "http://pages.local/paste/api/paste?page=X"},
+            "next": {"rel": "next", "href": "http://pages.local/paste/api/paste?page=2"}
+        },
         "items": [
             [
                 {"rel": "canonical", "href": "http://pages.local/paste/XYZ"},
@@ -227,11 +228,11 @@ Fetches information on a single paste. The payload looks like the following:
     Content-Type: application/json
 
     {
-        "links": [
-            {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
-            {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"},
-            {"rel": "up", "href": "http://pages.local/paste/api/paste"}
-        ],
+        "_links": {
+            "canonical": {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+            "self": {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"},
+            "up": {"rel": "up", "href": "http://pages.local/paste/api/paste"}
+        },
         "title": "...",
         "language": "...",
         "timestamp": "...",
@@ -258,10 +259,10 @@ You will get the following response payload:
     Content-Type: application/json
 
     {
-        "links": [
-            {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
-            {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"}
-        ]
+        "_links": {
+            "canonical": {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+            "self": {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"}
+        }
     }
 
 ### Authorization Tokens for Submitting Pastes

@@ -90,13 +90,13 @@ HTTP/1.0 200 Ok
 Content-Type: application/json
 
 {
-    "links": [
-        {"rel": "canonical", "href": "http://pages.local/paste"},
-        {"rel": "self", "href": "http://pages.local/paste/api/paste"},
-        {"rel": "first", "href": "http://pages.local/paste/api/paste"},
-        {"rel": "last", "href": "http://pages.local/paste/api/paste?page=X"},
-        {"rel": "next", "href": "http://pages.local/paste/api/paste?page=2"}
-    ]
+    "_links": {
+        "canonical": {"rel": "canonical", "href": "http://pages.local/paste"},
+        "self": {"rel": "self", "href": "http://pages.local/paste/api/paste"},
+        "first": {"rel": "first", "href": "http://pages.local/paste/api/paste"},
+        "last": {"rel": "last", "href": "http://pages.local/paste/api/paste?page=X"},
+        "next": {"rel": "next", "href": "http://pages.local/paste/api/paste?page=2"}
+    },
     "items": [
         [
             {"rel": "canonical", "href": "http://pages.local/paste/XYZ"},
@@ -119,11 +119,11 @@ HTTP/1.0 200 Ok
 Content-Type: application/json
 
 {
-    "links": [
-        {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
-        {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"},
-        {"rel": "up", "href": "http://pages.local/paste/api/paste"}
-    ],
+    "_links": {
+        "canonical": {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+        "self": {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"},
+        "up": {"rel": "up", "href": "http://pages.local/paste/api/paste"}
+    },
     "title": "...",
     "language": "...",
     "timestamp": "...",
@@ -165,10 +165,10 @@ Location: http://paste.local/paste/XYZ12ABC
 Content-Type: application/json
 
 {
-    "links": [
-        {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
-        {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"}
-    ]
+    "_links": {
+        "canonical": {"rel": "canonical", "href": "http://pages.local/paste/XYZ12ABC"},
+        "self": {"rel": "self", "href": "http://pages.local/paste/api/paste/XYZ12ABC"}
+    }
 }
         </pre>
 
