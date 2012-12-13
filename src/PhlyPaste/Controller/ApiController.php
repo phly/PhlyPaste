@@ -37,7 +37,7 @@ class ApiController extends AbstractActionController
     {
         // Setup JsonStrategy
         $services = $this->getServiceLocator();
-        $jsonStrategy = $services->get('ViewJsonStrategy');
+        $jsonStrategy = $services->get('PhlyPaste\JsonStrategy');
         $view         = $services->get('View');
         $view->getEventManager()->attach($jsonStrategy, 100);
 
@@ -47,7 +47,9 @@ class ApiController extends AbstractActionController
         if (!$accept) {
             return $this->createUnacceptableResponse($e);
         }
-        if (!$accept->match('application/json')) {
+        if (!$accept->match('application/hal+json') 
+            && (!$accept->match('application/json'))
+        ) {
             return $this->createUnacceptableResponse($e);
         }
 
@@ -85,16 +87,16 @@ class ApiController extends AbstractActionController
         $page   = $this->params()->fromQuery('page', 1);
 
         $links  = array(
-            $this->getLink('canonical', $this->url()->fromRoute('phly-paste/list'), $page),
-            $this->getLink('self', $this->url()->fromRoute('phly-paste/api'), $page),
-            $this->getLink('first', $this->url()->fromRoute('phly-paste/api')),
-            $this->getLink('last', $this->url()->fromRoute('phly-paste/api'), $last),
+            'canonical' => $this->getLink('canonical', $this->url()->fromRoute('phly-paste/list'), $page),
+            'self'      => $this->getLink('self', $this->url()->fromRoute('phly-paste/api'), $page),
+            'first'     => $this->getLink('first', $this->url()->fromRoute('phly-paste/api')),
+            'last'      => $this->getLink('last', $this->url()->fromRoute('phly-paste/api'), $last),
         );
         if ($page != 1) {
-            $links[] = $this->getLink('prev', $this->url()->fromRoute('phly-paste/api'), $page - 1);
+            $links['prev'] = $this->getLink('prev', $this->url()->fromRoute('phly-paste/api'), $page - 1);
         }
         if ($page != $last) {
-            $links[] = $this->getLink('next', $this->url()->fromRoute('phly-paste/api'), $page + 1);
+            $links['next'] = $this->getLink('next', $this->url()->fromRoute('phly-paste/api'), $page + 1);
         }
 
         $items  = array();
@@ -106,7 +108,7 @@ class ApiController extends AbstractActionController
         }
 
         $model = new JsonModel(array(
-            'links' => $links,
+            '_links' => $links,
             'items' => $items,
         ));
         return $model;
@@ -119,14 +121,14 @@ class ApiController extends AbstractActionController
             return $paste;
         }
         $links = array(
-            $this->getLink('canonical', $this->url()->fromRoute('phly-paste/view', array('paste' => $paste->hash))),
-            $this->getLink('self', $this->url()->fromRoute('phly-paste/api/item', array('paste' => $paste->hash))),
-            $this->getLink('up', $this->url()->fromRoute('phly-paste/api')),
+            'canonical' => $this->getLink('canonical', $this->url()->fromRoute('phly-paste/view', array('paste' => $paste->hash))),
+            'self'      => $this->getLink('self', $this->url()->fromRoute('phly-paste/api/item', array('paste'  => $paste->hash))),
+            'up'        => $this->getLink('up', $this->url()->fromRoute('phly-paste/api')),
         );
         $lines = preg_split("/(\r\n|\n|\r)/", $paste->content, 2);
         $title = array_shift($lines);
         return new JsonModel(array(
-            'links'     => $links,
+            '_links'     => $links,
             'title'     => $title,
             'language'  => $paste->language,
             'timestamp' => $paste->timestamp,
@@ -181,9 +183,9 @@ class ApiController extends AbstractActionController
 
         $response->getHeaders()->addHeaderLine('Location', $canonical);
         return new JsonModel(array(
-            'links' => array(
-                $this->getLink('canonical', $canonical),
-                $this->getLink('self', $this->url()->fromRoute('phly-paste/api/item', array('paste' => $paste->hash))),
+            '_links' => array(
+                'canonical' => $this->getLink('canonical', $canonical),
+                'self'      => $this->getLink('self', $this->url()->fromRoute('phly-paste/api/item', array('paste' => $paste->hash))),
             ),
         ));
     }
